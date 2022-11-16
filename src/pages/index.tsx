@@ -1,9 +1,9 @@
-import { getOptionsForVote } from "@/utils/getRandomPokemon";
-import { PokemonOutput, trpc } from "@/utils/trpc";
+import { type FC, useState } from "react";
 import type { NextPage } from "next";
-import Head from "next/head";
+
+import { getOptionsForVote } from "@/utils/getRandomPokemon";
+import { type PokemonOutput, trpc } from "@/utils/trpc";
 import Image from "next/image";
-import { FC, useEffect, useState } from "react";
 
 const btn =
   "inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm font-medium rounded-full text-gray-700 bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500";
@@ -63,22 +63,22 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
-
 const PokemonListing: FC<{ pokemon: PokemonOutput; vote: () => void }> = (
   props
 ) => {
   return (
     <div className="flex flex-col items-center">
       <div className="flex h-64 w-64 flex-col place-content-center ">
-        <img
+        <Image
           alt={props.pokemon.name}
           src={props.pokemon.imageUrl || ""}
-          className="max-h-full max-w-full"
+          className="h-64 w-64"
+          width={256}
+          height={256}
+          priority
         />
       </div>
       <div className="p-3" />
-
       <div className="text-center text-xl capitalize">{props.pokemon.name}</div>
       <div className="p-3" />
       <button className={btn} onClick={props.vote}>
@@ -87,3 +87,5 @@ const PokemonListing: FC<{ pokemon: PokemonOutput; vote: () => void }> = (
     </div>
   );
 };
+
+export default Home;
